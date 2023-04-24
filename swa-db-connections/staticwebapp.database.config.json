@@ -1,0 +1,123 @@
+{
+  "$schema": "https://dataapibuilder.azureedge.net/schemas/v0.6.13/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "postgresql",
+    "connection-string": "Server=c.dcaas-pgsql-db.postgres.database.azure.com;Database=citus;Port=5432;User Id=citus;Password=QumPg123;Ssl Mode=VerifyFull;"
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api"
+    },
+    "graphql": {
+      "allow-introspection": true,
+      "enabled": true,
+      "path": "/graphql"
+    },
+    "host": {
+      "mode": "development",
+      "cors": {
+        "origins": [ "https://localhost:7286", "http://localhost:4280" ],
+        "allow-credentials": true
+      },
+      "authentication": {
+        "provider": "StaticWebApps"
+      }
+    }
+  },
+  "entities": {
+    "Continent": {
+      "source": "public.continents",
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "*"
+          ]
+        }
+      ],
+      "relationships": {
+        "countries": {
+          "cardinality": "many",
+          "target.entity": "Country"
+        }
+      }
+    },
+    "Country": {
+      "source": "public.countries",
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "*"
+          ]
+        }
+      ],
+      "relationships": {
+        "cities": {
+          "cardinality": "many",
+          "target.entity": "City"
+        },
+        "continent": {
+          "cardinality": "one",
+          "target.entity": "Continent"
+        }
+      }
+    },
+    "City": {
+      "source": "public.cities",
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "*"
+          ]
+        }
+      ],
+      "relationships": {
+        "country": {
+          "cardinality": "one",
+          "target.entity": "Country"
+        }
+      }
+    },
+    "DataCenter": {
+      "source": "public.data_centers",
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "*"
+          ]
+        }
+      ],
+      "relationships": {
+        "city": {
+          "cardinality": "one",
+          "target.entity": "City"
+        },
+        "cloudprovider": {
+          "cardinality": "one",
+          "target.entity": "CloudProvider"
+        }
+      }
+    },
+    "CloudProvider": {
+      "source": "public.cloud_providers",
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            "*"
+          ]
+        }
+      ],
+      "relationships": {
+        "datacenters": {
+          "cardinality": "many",
+          "target.entity": "DataCenter"
+        }
+      }
+    }
+  }
+}
