@@ -1,0 +1,125 @@
+@baseUrl = https://localhost:5001
+
+@apiBaseUrl = {{baseUrl}}/api
+@graphQlBaseUrl = {{baseUrl}}/graphql
+
+@domain = DataCenter
+
+@domainUrl = {{apiBaseUrl}}/{{domain}}
+
+# Get all data centers
+GET {{domainUrl}}
+###
+
+# Get data center by id
+GET {{domainUrl}}/id/1
+###
+
+# Create data center
+POST {{domainUrl}}
+
+{
+    "id": 11,
+    "first_name": "Manoj",
+    "middle_name": "Mad",
+    "last_name": "Waikar"
+}
+###
+
+# Update data center
+PUT {{domainUrl}}/id/11
+
+{
+    "first_name": "Manoj",
+    "middle_name": "M",
+    "last_name": "Waikar"
+}
+###
+
+# Delete data center
+DELETE {{domainUrl}}/id/11
+###
+
+#### GraphQL examples ####
+
+# Get data centers with city & cloud provider
+POST {{graphQlBaseUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+    dataCenters {
+        items {
+            id
+            name
+            city {
+                id
+                name
+            }
+            cloudprovider {
+                id
+                name
+            }
+        }
+    }
+}
+###
+
+# Order by ex - Get cities with country, ordered by city name
+POST {{graphQlBaseUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+    cities(orderBy: { name: ASC }) {
+        items {
+            id
+            name
+            Shortname
+            country {
+                id
+                name
+            }
+        }
+    }
+}
+###
+
+# Filter ex - Get cities with 'er' in the name (with country)
+POST {{graphQlBaseUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+    cities(filter: { name: { contains: "er" }}) 
+    {
+        items {
+            id
+            name
+            Shortname
+            country {
+                id
+                name
+            }
+        }
+    }
+}
+###
+
+# Get city by id (with country)
+POST {{graphQlBaseUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+    city_by_pk(id: 5) {
+        id
+        name
+        Shortname
+        country {
+            id
+            name
+        }
+    }
+}
+###

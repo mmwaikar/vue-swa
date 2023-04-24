@@ -29,3 +29,9 @@ npm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Running with DAB
+
+```bash
+swa start ./src --data-api-location swa-db-connections
+```

@@ -1,0 +1,72 @@
+@baseUrl = https://localhost:5001
+
+@apiBaseUrl = {{baseUrl}}/api
+@graphQlBaseUrl = {{baseUrl}}/graphql
+
+@domain = Country
+
+@domainUrl = {{apiBaseUrl}}/{{domain}}
+
+# Get all countries
+GET {{domainUrl}}
+###
+
+# Get country by id
+GET {{domainUrl}}/id/1
+###
+
+# Create country
+POST {{domainUrl}}
+
+{
+    "id": 11,
+    "first_name": "Manoj",
+    "middle_name": "Mad",
+    "last_name": "Waikar"
+}
+###
+
+# Update country
+PUT {{domainUrl}}/id/11
+
+{
+    "first_name": "Manoj",
+    "middle_name": "M",
+    "last_name": "Waikar"
+}
+###
+
+# Delete country
+DELETE {{domainUrl}}/id/11
+###
+
+#### GraphQL examples ####
+
+# Get countries with continent & cities
+POST {{graphQlBaseUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+    countries {
+        items {
+            id
+            name
+            continent {
+                id
+                name
+            }
+            cities {
+                items {
+                    id
+                    name
+                }
+            }
+        }
+    }
+}
+###
+
+# Get SWA DAB
+GET http://localhost:4280/data-api/api/Continent
+###

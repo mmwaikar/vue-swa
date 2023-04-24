@@ -1,0 +1,64 @@
+@baseUrl = https://localhost:5001
+
+@apiBaseUrl = {{baseUrl}}/api
+@graphQlBaseUrl = {{baseUrl}}/graphql
+
+@domain = Continent
+
+@domainUrl = {{apiBaseUrl}}/{{domain}}
+
+# Get all continents
+GET {{domainUrl}}
+###
+
+# Get continent by id
+GET {{domainUrl}}/id/1
+###
+
+# Create continent
+POST {{domainUrl}}
+
+{
+    "id": 11,
+    "first_name": "Manoj",
+    "middle_name": "Mad",
+    "last_name": "Waikar"
+}
+###
+
+# Update continent
+PUT {{domainUrl}}/id/11
+
+{
+    "first_name": "Manoj",
+    "middle_name": "M",
+    "last_name": "Waikar"
+}
+###
+
+# Delete continent
+DELETE {{domainUrl}}/id/11
+###
+
+#### GraphQL examples ####
+
+# Get continents with countries
+POST {{graphQlBaseUrl}}
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+{
+    continents {
+        items {
+            id
+            name
+            countries {
+                items {
+                    id
+                    name
+                }
+            }
+        }
+    }
+}
+###
