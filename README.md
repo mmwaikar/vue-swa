@@ -30,8 +30,40 @@ npm run lint
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-## Running with DAB
+## Running with SWA
+
+### The production workflow (which works)
+
+1. First build the application using:
 
 ```bash
-swa start ./src --data-api-location swa-db-connections
+npm run build
+```
+
+2. Then, run `swa` using:
+
+```bash
+swa start ./dist --data-api-location swa-db-connections
+```
+
+
+```bash
+$env:DATABASE_CONNECTION_STRING='Server=dcaas-db.postgres.database.azure.com;Database=postgres;Port=5432;User Id=pgadmin;Password=QumPg123;Ssl Mode=VerifyFull;'
+
+$env:DATABASE_CONNECTION_STRING
+```
+
+```bash
+swa start ./dist --data-api-location swa-db-connections --run "npm run build"
+
+swa start ./public --data-api-location swa-db-connections --run "npm run serve"
+swa start ./src --data-api-location swa-db-connections http://localhost:8080
+swa start ./public --data-api-location swa-db-connections
+
+swa start
+swa start http://localhost:8080 --run "npm run serve"
+swa start ./src http://localhost:8080
+swa start ./src --data-api-location swa-db-connections http://localhost:8080
+swa start ./src --data-api-location swa-db-connections http://localhost:8080 --run "npm run serve"
+swa start http://localhost:4280 --api-devserver-url http://localhost:8080
 ```
