@@ -72,19 +72,3 @@ export DATABASE_CONNECTION_STRING=''
 
 export | grep DATABASE_CONNECTION_STRING
 ```
-
-```bash
-swa start ./dist --data-api-location swa-db-connections --run "npm run build"
-
-swa start ./public --data-api-location swa-db-connections --run "npm run serve"
-swa start ./src --data-api-location swa-db-connections http://localhost:8080
-swa start ./public --data-api-location swa-db-connections
-
-swa start
-swa start http://localhost:8080 --run "npm run serve"
-swa start ./src http://localhost:8080
-swa start ./src --data-api-location swa-db-connections http://localhost:8080
-swa start ./src --data-api-location swa-db-connections http://localhost:8080 --run "npm run serve"
-swa start ./src --app-devserver-url http://localhost:8080 --data-api-location swa-db-connections
-swa start ./src --data-api-location swa-db-connections --run "npm run serve"
-```
