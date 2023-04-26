@@ -2,7 +2,7 @@
   "$schema": "https://dataapibuilder.azureedge.net/schemas/v0.6.13/dab.draft.schema.json",
   "data-source": {
     "database-type": "postgresql",
-    "connection-string": ""
+    "connection-string": "@env('DATABASE_CONNECTION_STRING')"
   },
   "runtime": {
     "rest": {
@@ -17,7 +17,7 @@
     "host": {
       "mode": "development",
       "cors": {
-        "origins": [ "https://localhost:7286", "http://localhost:4280" ],
+        "origins": [ "http://localhost:4280" ],
         "allow-credentials": true
       },
       "authentication": {

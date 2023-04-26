@@ -46,11 +46,31 @@ npm run build
 swa start ./dist --data-api-location swa-db-connections
 ```
 
+### The development workflow (which only works on WSL so far)
+
+1. Run `swa` using:
 
 ```bash
-$env:DATABASE_CONNECTION_STRING='Server=dcaas-db.postgres.database.azure.com;Database=postgres;Port=5432;User Id=pgadmin;Password=QumPg123;Ssl Mode=VerifyFull;'
+swa start
+```
+## Setting environment variable for db connections string
+
+### For Windows (powershell)
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+$env:DATABASE_CONNECTION_STRING=''
 
 $env:DATABASE_CONNECTION_STRING
+```
+
+### For Unix
+
+```bash
+export DATABASE_CONNECTION_STRING=''
+
+export | grep DATABASE_CONNECTION_STRING
 ```
 
 ```bash
@@ -65,5 +85,6 @@ swa start http://localhost:8080 --run "npm run serve"
 swa start ./src http://localhost:8080
 swa start ./src --data-api-location swa-db-connections http://localhost:8080
 swa start ./src --data-api-location swa-db-connections http://localhost:8080 --run "npm run serve"
-swa start http://localhost:4280 --api-devserver-url http://localhost:8080
+swa start ./src --app-devserver-url http://localhost:8080 --data-api-location swa-db-connections
+swa start ./src --data-api-location swa-db-connections --run "npm run serve"
 ```
